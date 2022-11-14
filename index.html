@@ -1,112 +1,163 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title>페이지별 슬라이드 애니메이션</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>Document</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            margin: 20px;
+            padding: 20px;
+            line-height: 1;
             font-family: "Open Sans", sans-serif;
+            font-size: 1em;
             background-color: #f1f1f1;
             color: #555;
         }
 
-        h1,h2,h3,h4,h5,h6, p {
+        ul {
             margin: 0;
             padding: 0;
+            list-style: none;
         }
 
-        section {
-            /* height: 200px; */
-            /* jQuery test height */
-            height: 900px;
-        }
-
-        section h1 {
-            margin: 60px 0 10px 60px;
-            font-size: 2.4em;
+        .title {
+            margin: 0;
+            margin-bottom: 35px;
+            padding: 0;
+            font-size: 1.5em;
             font-weight: 300;
-            opacity: 0;
-            transform: translateX(-100px);
-            transition: opacity 0.4s, transform 0.6s;
+            color: #555;
         }
 
-        section p {
-            margin-left: 60px;
-            color: #aaa;
-            opacity: 0;
-            transform: translateX(-100px);
-            transition: opacity 0.4s, transform 0.6s;
-            transition-delay: 0.4s;
+        .container {
+            margin-top: 35px;
         }
 
-        section.active h1,
-        section.active p {
-            opacity: 1;
-            transform: translateX(0);
+        nav>ul>li {
+            position: relative;
+            float: left;
+            width: 140px;
+            height: 40px;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 13px;
+            border-left: 1px solid #ccc;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        nav>ul>li:first-child {
+            border-left: none;
+        }
+
+        nav>ul>li>a {
+            display: block;
+            width: 100%;
+            line-height: 40px;
+            text-decoration: none;
+            background: #eaeaea;
+            color: #666;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        nav>ul>li:hover>a,
+        nav>ul>li>a.over {
+            font-weight: 600;
+            background: #8ac007;
+            color: #fff;
+        }
+
+        nav .sub {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 40px;
+            width: 100%;
+        }
+
+        nav .sub li {
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        nav .sub li a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #666;
+            background: #fff;
+        }
+
+        nav .sub li a:hover,
+        nav .sub li a:focus {
+            background: #f8f8f8;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <section id="page1">
-            <h1>오늘은 월요일</h1>
-            <p>금요일은 언제오나?</p>
-        </section>
-        <section id="page2">
-            <h1>오늘은 월요일</h1>
-            <p>금요일은 언제오나?</p>
-        </section>
-        <section id="page3">
-            <h1>오늘은 월요일</h1>
-            <p>금요일은 언제오나?</p>
-        </section>
-        <section id="page4">
-            <h1>오늘은 월요일</h1>
-            <p>금요일은 언제오나?</p>
-        </section>
-        <section id="page5">
-            <h1>오늘은 월요일</h1>
-            <p>금요일은 언제오나?</p>
-        </section>
-        <section id="page6">
-            <h1>오늘은 월요일</h1>
-            <p>금요일은 언제오나?</p>
-        </section>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">main1</a>
+                    <ul class="sub">
+                        <li><a href="#">sub11</a></li>
+                        <li><a href="#">sub12</a></li>
+                        <li><a href="#">sub13</a></li>
+                        <li><a href="#">sub14</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">main2</a>
+                    <ul class="sub">
+                        <li><a href="#">sub21</a></li>
+                        <li><a href="#">sub22</a></li>
+                        <li><a href="#">sub23</a></li>
+                        <li><a href="#">sub24</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">main3</a>
+                    <ul class="sub">
+                        <li><a href="#">sub31</a></li>
+                        <li><a href="#">sub32</a></li>
+                        <li><a href="#">sub33</a></li>
+                        <li><a href="#">sub34</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">main4</a>
+                    <ul class="sub">
+                        <li><a href="#">sub41</a></li>
+                        <li><a href="#">sub42</a></li>
+                        <li><a href="#">sub43</a></li>
+                        <li><a href="#">sub44</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     
     <script>
-        setTimeout(function() {
-            $("body, html").animate({scrolltop : 0}, 600, function(){
-                $("#page1").addClass("active");
-
-                $(window).scroll(function() {
-                    let t= $(this).scrollTop();
-                    if(t <= $("#page1").offset().top+300){
-                        $("#page1").addClass("active");
-                    } else if (t <= $("#page2").offset().top+300){
-                        $("#page2").addClass("active");
-                    } else if (t <= $("#page3").offset().top+300){
-                        $("#page3").addClass("active");
-                    }else if (t <= $("#page4").offset().top+300){
-                        $("#page4").addClass("active");
-                    }else if (t <= $("#page5").offset().top+300){
-                        $("#page5").addClass("active");
-                    } else if (t < $("body,html").height()){
-                        $("#page6").addClass("active");
-                    } //마지막 페이지 
-                });
-            });
-        },150);
-
+        $(function(){
+            $("nav>ul>li").hover(
+                function(){
+                    $(this).find(".sub").stop().slideDown(300);
+                },
+                // *************** this : 지금 마우스 올린 바로 그 li **************
+                
+                function(){
+                    $(this).find(".sub").stop().slideUp(300);
+                }
+                /* slideDown,Up(밀리초) : .slideDown( [duration(ms) ] [, easing ] [, complete ] )
+                   find() : 어떤 요소의 하위 요소 중 특정 요소를 찾을 때 */
+                
+                // animation 쓸 때는, 바로 앞에 stop() 반드시 추가 
+            );
+        });
     </script>
 </body>
-
 </html>
